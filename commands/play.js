@@ -4,7 +4,7 @@ import {
   getVoiceConnection,
 } from "@discordjs/voice";
 import { SlashCommandBuilder } from "discord.js";
-import { getSoundsAsChoices, getSoundURLbyId } from "../utils/sounds.js";
+import { getSounds, getSoundURLbyId } from "../utils/sounds.js";
 import ytdl from "ytdl-core-discord";
 
 const playCommand = {
@@ -16,7 +16,7 @@ const playCommand = {
         .setName("sound")
         .setDescription("A sound to be played")
         .setRequired(true)
-        .addChoices(...getSoundsAsChoices())
+        .addChoices(...getSounds().map(({ id, name }) => ({ name, value: id })))
     ),
   async execute(interaction) {
     const connection = getVoiceConnection(interaction.guildId);

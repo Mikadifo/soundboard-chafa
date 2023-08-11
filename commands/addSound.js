@@ -29,7 +29,7 @@ const addCommand = {
     }
 
     addSound({ id, name, url });
-    await interaction.reply(`${name} added!`);
+    await interaction.reply(`${name} added! Don't forget to restart the bot.`);
   },
 };
 
