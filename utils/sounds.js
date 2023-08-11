@@ -1,10 +1,10 @@
 import fs from "fs";
 import { URL } from "url";
 
+const SOUNDS_URL = new URL("./../data/sounds.json", import.meta.url);
+
 const readSounds = () => {
-  const sounds = fs.readFileSync(
-    new URL("./../data/sounds.json", import.meta.url)
-  );
+  const sounds = fs.readFileSync(SOUNDS_URL);
   return JSON.parse(sounds);
 };
 
@@ -13,5 +13,12 @@ export const getSoundsAsChoices = () => {
 };
 
 export const getSoundURLbyId = (soundId) => {
-  return readSounds().filter(({ id }) => id === soundId)[0].URL;
+  return readSounds().filter(({ id }) => id === soundId)[0].url;
+};
+
+export const addSound = (sound) => {
+  const sounds = readSounds();
+  sounds.push(sound);
+
+  fs.writeFileSync(SOUNDS_URL, JSON.stringify(sounds));
 };
