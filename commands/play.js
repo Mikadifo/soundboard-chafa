@@ -1,11 +1,5 @@
-import {
-  createAudioPlayer,
-  createAudioResource,
-  getVoiceConnection,
-} from "@discordjs/voice";
 import { SlashCommandBuilder } from "discord.js";
-import { getSounds, getSoundURLbyId } from "../utils/sounds.js";
-import ytdl from "ytdl-core-discord";
+import { getSounds, playSound } from "../utils/sounds.js";
 
 const playCommand = {
   data: new SlashCommandBuilder()
@@ -19,16 +13,10 @@ const playCommand = {
         .addChoices(...getSounds().map(({ id, name }) => ({ name, value: id })))
     ),
   async execute(interaction) {
-    const connection = getVoiceConnection(interaction.guildId);
-    if (!connection) return await interaction.reply("I'm not in any channel");
-
     const sound = interaction.options.getString("sound");
-    const audioPlayer = createAudioPlayer();
-    const stream = await ytdl(getSoundURLbyId(sound), { filter: "audioonly" });
-    connection.subscribe(audioPlayer);
+    const played = playSound(sound, interaction.guildId);
 
-    audioPlayer.play(createAudioResource(stream));
-
+    if (!played) return await interaction.reply("I'm not in any channel");
     await interaction.reply(`Playing ${sound}!`);
   },
 };
