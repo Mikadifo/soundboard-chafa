@@ -15,6 +15,7 @@ client.once(Events.ClientReady, (c) => {
     activities: [{ name: "/help", type: ActivityType.Listening }],
     status: "online",
   });
+
   console.log(`${c.user.tag} is online`);
 });
 
