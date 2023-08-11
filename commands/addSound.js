@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import { addSound } from "../utils/sounds.js";
+import { addSound, soundIdExists } from "../utils/sounds.js";
 
 const addCommand = {
   data: new SlashCommandBuilder()
@@ -20,10 +20,15 @@ const addCommand = {
   async execute(interaction) {
     const name = interaction.options.getString("name");
     const id = name.toLowerCase().replaceAll(/\s/g, "_");
+
     const url = interaction.options.getString("url");
+    if (soundIdExists(id)) {
+      return await interaction.reply(
+        `There is a sound with the name \`${name}\` already. Sound not added!`
+      );
+    }
 
     addSound({ id, name, url });
-
     await interaction.reply(`${name} added!`);
   },
 };

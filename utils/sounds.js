@@ -16,6 +16,10 @@ export const getSoundURLbyId = (soundId) => {
   return readSounds().filter(({ id }) => id === soundId)[0].url;
 };
 
+export const soundIdExists = (soundId) => {
+  return readSounds().filter(({ id }) => id === soundId).length > 0;
+};
+
 export const addSound = (sound) => {
   const sounds = readSounds();
   sounds.push(sound);
