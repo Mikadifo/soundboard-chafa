@@ -1,17 +1,12 @@
-require("dotenv").config();
-const { REST, Routes } = require("discord.js");
+import dotenv from "dotenv";
+import { REST, Routes } from "discord.js";
+import helpCommand from "./commands/help.js";
+import pingCommand from "./commands/ping.js";
+
+dotenv.config();
 const { token, clientId, guildId } = process.env;
 
-const commands = [
-  {
-    name: "sounds",
-    description: "Lists all sounds",
-  },
-  {
-    name: "hey",
-    description: "Hola",
-  },
-];
+const commands = [helpCommand, pingCommand];
 
 const rest = new REST({ version: "10" }).setToken(token);
 
@@ -29,4 +24,4 @@ const main = async () => {
   }
 };
 
-module.exports = { main };
+export default main;

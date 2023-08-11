@@ -1,7 +1,9 @@
-require("dotenv").config();
-const { Client, IntentsBitField } = require("discord.js");
+import dotenv from "dotenv";
+import { Client, IntentsBitField } from "discord.js";
+import main from "./register-commands.js";
+
+dotenv.config();
 const { token } = process.env;
-const { main } = require("./register-commands.js");
 
 const client = new Client({
   intents: [

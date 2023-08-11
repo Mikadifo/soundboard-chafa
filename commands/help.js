@@ -1,10 +1,7 @@
-const { SlashCommandBuilder } = require("discord.js");
+import { SlashCommandBuilder } from "discord.js";
 
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("help")
-    .setDescription("Provides information about the bot commands."),
-  async execute(interaction) {
-    await interaction.reply("These are the available commands:");
-  },
-};
+const helpCommand = new SlashCommandBuilder()
+  .setName("help")
+  .setDescription("Provides information about the bot commands.");
+
+export default helpCommand.toJSON();
