@@ -56,10 +56,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   const { success, errorMessage } = await playSound(
     pressedButton.id,
-    interaction.guildid
+    interaction.guildId
   );
-
-  console.log(success, errorMessage);
 
   if (!success) {
     return await interaction.update(
