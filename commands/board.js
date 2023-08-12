@@ -22,36 +22,10 @@ const boardCommand = {
       row.addComponents(button);
     });
 
-    const response = await interaction.reply({
+    await interaction.reply({
       content: `Displaying a total of ${sounds.length} sounds.`,
       components: [row],
     });
-    const collectorFilter = (i) => i.user.id === interaction.user.id;
-
-    try {
-      const confirmation = await response.awaitMessageComponent({
-        filter: collectorFilter,
-        time: 300_000,
-      });
-
-      const pressedButton = sounds.filter(
-        ({ id }) => id === confirmation.customId
-      )[0];
-
-      if (pressedButton) {
-        await confirmation.update({
-          content: `Displaying a total of ${
-            sounds.length
-          } sounds.\n\`${"xyz"}\` played!`,
-          components: [row],
-        });
-      }
-    } catch (error) {
-      await interaction.editReply({
-        content: "Confirmation not received within 5 minute, cancelling",
-        components: [],
-      });
-    }
   },
 };
 

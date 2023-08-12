@@ -7,7 +7,7 @@ const leaveCommand = {
     .setDescription("Kick me out of your channel."),
   async execute(interaction) {
     const connection = getVoiceConnection(interaction.guildId);
-    if (!connection) return await interaction.reply("I'm not in any channel");
+    if (!connection) return await interaction.reply("I'm not in a channel");
 
     connection.destroy();
     await interaction.reply("Adioooo!");

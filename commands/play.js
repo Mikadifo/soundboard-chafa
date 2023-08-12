@@ -13,11 +13,16 @@ const playCommand = {
         .addChoices(...getSounds().map(({ id, name }) => ({ name, value: id })))
     ),
   async execute(interaction) {
-    const sound = interaction.options.getString("sound");
-    const played = playSound(sound, interaction.guildId);
+    const soundId = interaction.options.getString("sound");
+    await interaction.deferReply();
 
-    if (!played) return await interaction.reply("I'm not in any channel");
-    await interaction.reply(`Playing ${sound}!`);
+    const { success, errorMessage } = await playSound(
+      soundId,
+      interaction.guildId
+    );
+
+    if (!success) return await interaction.editReply(errorMessage);
+    await interaction.editReply(`Playing ${soundId}!`);
   },
 };
 

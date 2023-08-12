@@ -29,14 +29,15 @@ export const addSound = (sound) => {
   fs.writeFileSync(SOUNDS_URL, JSON.stringify(sounds));
 };
 
-export const playSound = async (sound, guildId) => {
+export const playSound = async (soundId, guildId) => {
   const connection = getVoiceConnection(guildId);
   if (!connection)
-    return { success: true, errorMessage: "I'm not in any channel" };
+    return { success: false, errorMessage: "I'm not in a channel" };
 
   const audioPlayer = createAudioPlayer();
-  const stream = await ytdl(getSoundURLbyId(sound), { filter: "audioonly" });
+  const stream = await ytdl(getSoundURLbyId(soundId), { filter: "audioonly" });
   connection.subscribe(audioPlayer);
 
   audioPlayer.play(createAudioResource(stream));
+  return { success: true, errorMessage: "" };
 };

@@ -1,5 +1,6 @@
 import { ActivityType, Client, Events, IntentsBitField } from "discord.js";
 import main from "./register-commands.js";
+import { getSounds, playSound } from "./utils/sounds.js";
 
 const client = new Client({
   intents: [
@@ -22,14 +23,15 @@ client.once(Events.ClientReady, (c) => {
 
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
+
   const command = interaction.client.commands.get(interaction.commandName);
   if (!command) {
     return console.log(interaction.commandName, " was not found!");
   }
+
   try {
     await command.execute(interaction);
   } catch (error) {
-    console.error(error);
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({
         content: "There was an error while executing this command!",
@@ -42,6 +44,32 @@ client.on(Events.InteractionCreate, async (interaction) => {
       });
     }
   }
+});
+
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isButton()) return;
+
+  const sounds = getSounds().map(({ id, name }) => ({ id, name }));
+  const pressedButton = sounds.filter(
+    ({ id }) => id === interaction.customId
+  )[0];
+
+  const { success, errorMessage } = await playSound(
+    pressedButton.id,
+    interaction.guildid
+  );
+
+  console.log(success, errorMessage);
+
+  if (!success) {
+    return await interaction.update(
+      `Displaying a total of ${sounds.length} sounds.\n${errorMessage}`
+    );
+  }
+
+  await interaction.update(
+    `Displaying a total of ${sounds.length} sounds.\nPlaying ${pressedButton.name}`
+  );
 });
 
 main(client);
