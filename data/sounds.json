@@ -1,18 +1,1 @@
-[
-  {
-    "id": "crow_laughter",
-    "name": "Crowd Laughter",
-    "url": "https://www.youtube.com/watch?v=CGlLYc9J3RY&list=PLfatw8fRRy-tjGeysegCLfR5ErT08BiGZ"
-  },
-  {
-    "id": "fire_explosion",
-    "name": "Fire Explosion",
-    "url": "https://www.youtube.com/watch?v=YwNaIke0bf8"
-  },
-  {
-    "id": "thunder",
-    "name": "Thunder",
-    "url": "https://www.youtube.com/watch?v=77jgQCkgObI"
-  }
-]
-
+[{"id":"crow_laughter","name":"Crowd Laughter","emoji":"😆","url":"https://www.youtube.com/watch?v=CGlLYc9J3RY&list=PLfatw8fRRy-tjGeysegCLfR5ErT08BiGZ"},{"id":"fire_explosion","name":"Fire Explosion","emoji":"💥","url":"https://www.youtube.com/watch?v=YwNaIke0bf8"},{"id":"thunder","name":"Thunder","emoji":"⛈️","url":"https://www.youtube.com/watch?v=77jgQCkgObI"},{"id":"gun_fire","name":"Gun Fire","emoji":"🔫","url":"https://www.youtube.com/watch?v=ceVNT27Mm_A"}]
