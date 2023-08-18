@@ -49,7 +49,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isButton()) return;
 
-  const sounds = getSounds().map(({ id, name }) => ({ id, name }));
+  const sounds = getSounds();
   const pressedButton = sounds.filter(
     ({ id }) => id === interaction.customId
   )[0];
